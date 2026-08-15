@@ -65,8 +65,8 @@ public class ConsultaControler {
 
     @AcessoGeral
     @GetMapping("/cancelarMinhas/{id}")
-    public ResponseEntity<Void> cancelarMinhaConsulta(@AuthenticationPrincipal JwtUserData userData) {
-        consultaService.cancelarConsulta(userData.id());
+    public ResponseEntity<Void> cancelarMinhaConsulta(@AuthenticationPrincipal JwtUserData userData,@PathVariable Long id) {
+       consultaService.cancelarMinhaConsulta(userData,id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

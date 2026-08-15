@@ -24,6 +24,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -106,5 +107,13 @@ public class ConsultaService {
         consultaRepository.save(consulta);
     }
 
+    public void cancelarMinhaConsulta(JwtUserData data, Long id){
+        Consulta consulta = consultaRepository.findById(id).orElseThrow(() -> new NaoAchadoException("consulta nao existe", "id"));
+        if (Objects.equals(consulta.getMedico().getId(), data.id()) || Objects.equals(consulta.getPaciente().getId(), data.id())){
+                    consulta.setStatus(Status.CANCELADA);
+        }else {
+            throw  new NaoAchadoException("essa consulta não é sua", "Id");
+        }
 
+    }
 }
