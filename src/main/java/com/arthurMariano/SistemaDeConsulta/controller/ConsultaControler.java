@@ -65,8 +65,8 @@ public class ConsultaControler {
 
     @AcessoGeral
     @GetMapping("/cancelarMinhas/{id}")
-    public ResponseEntity<Void> cancelarMinhaConsulta(@AuthenticationPrincipal JwtUserData userData,@PathVariable Long id) {
-       consultaService.cancelarMinhaConsulta(userData,id);
+    public ResponseEntity<Void> cancelarMinhaConsulta(@AuthenticationPrincipal JwtUserData userData, @PathVariable Long id) {
+        consultaService.cancelarMinhaConsulta(userData, id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -76,16 +76,18 @@ public class ConsultaControler {
         List<ConsultaDto> consultaDtos = consultaService.BuscarConsultas(id);
         return ResponseEntity.status(HttpStatus.OK).body(consultaDtos);
     }
+
     @GetMapping("/concluir/{id}")
     @Funcionario
-    public  ResponseEntity<Void> concluirConsulta(@PathVariable Long id){
-            consultaService.concluirConsulta(id);
+    public ResponseEntity<Void> concluirConsulta(@PathVariable Long id) {
+        consultaService.concluirConsulta(id);
 
-        return  ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
+
     @GetMapping("/painel")
     @Funcionario
-    public  ResponseEntity<List<ConsultaDto>> Painel(){
+    public ResponseEntity<List<ConsultaDto>> Painel() {
         List<ConsultaDto> painel = consultaService.painel();
         return ResponseEntity.status(HttpStatus.OK).body(painel);
     }

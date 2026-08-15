@@ -107,26 +107,28 @@ public class ConsultaService {
         consultaRepository.save(consulta);
     }
 
-    public void cancelarMinhaConsulta(JwtUserData data, Long id){
+    public void cancelarMinhaConsulta(JwtUserData data, Long id) {
         Consulta consulta = consultaRepository.findById(id).orElseThrow(() -> new NaoAchadoException("consulta nao existe", "id"));
-        if (Objects.equals(consulta.getMedico().getId(), data.id()) || Objects.equals(consulta.getPaciente().getId(), data.id())){
-                    consulta.setStatus(Status.CANCELADA);
-        }else {
-            throw  new NaoAchadoException("essa consulta não é sua", "Id");
+        if (Objects.equals(consulta.getMedico().getId(), data.id()) || Objects.equals(consulta.getPaciente().getId(), data.id())) {
+            consulta.setStatus(Status.CANCELADA);
+        } else {
+            throw new NaoAchadoException("essa consulta não é sua", "Id");
         }
 
     }
-    public  void concluirConsulta(Long id){
+
+    public void concluirConsulta(Long id) {
         Consulta consulta = consultaRepository.findById(id).orElseThrow(() -> new NaoAchadoException("consulta nao existe", "id"));
         consulta.setStatus(Status.CONCLUIDA);
         consultaRepository.save(consulta);
 
     }
-    public  List<ConsultaDto> painel(){
+
+    public List<ConsultaDto> painel() {
         LocalDate dia = LocalDate.now();
         LocalDateTime inicio = dia.atStartOfDay();
         LocalDateTime fim = dia.atTime(LocalTime.MAX);
-        List<Consulta> lista = consultaRepository.findByStatusAndDataBetween(Status.CONFIRMADA,inicio, fim);
+        List<Consulta> lista = consultaRepository.findByStatusAndDataBetween(Status.CONFIRMADA, inicio, fim);
         return consultaMapper.consultaParaConsultaDto(lista);
 
     }

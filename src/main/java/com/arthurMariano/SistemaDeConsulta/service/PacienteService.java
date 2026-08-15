@@ -1,7 +1,9 @@
 package com.arthurMariano.SistemaDeConsulta.service;
 
+import com.arthurMariano.SistemaDeConsulta.dto.PacienteDTO;
 import com.arthurMariano.SistemaDeConsulta.dto.RegistroResponse;
 import com.arthurMariano.SistemaDeConsulta.exception.DadoJaCadastradoException;
+import com.arthurMariano.SistemaDeConsulta.exception.NaoAchadoException;
 import com.arthurMariano.SistemaDeConsulta.forms.PacienteForm;
 import com.arthurMariano.SistemaDeConsulta.mapper.PacienteMapper;
 import com.arthurMariano.SistemaDeConsulta.model.Paciente;
@@ -35,5 +37,10 @@ public class PacienteService {
         paciente.setSenha(codificadorDeSenha.encode(paciente.getSenha()));
         Paciente save = usuarioRepository.save(paciente);
         return new RegistroResponse(save.getId(), save.getLogin());
+    }
+
+    public PacienteDTO pesquisarPorcpf(String cpf) {
+        Paciente paciente = pacienteRepository.findByCpf(cpf).orElseThrow(() -> new NaoAchadoException("Pacinete nao existe", "cpf"));
+        return pacienteMapper.pacienteParaDTO(paciente);
     }
 }
