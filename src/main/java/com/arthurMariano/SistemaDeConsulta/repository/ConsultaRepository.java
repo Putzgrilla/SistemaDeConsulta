@@ -19,7 +19,11 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
     boolean existsByData(LocalDateTime data);
 
     List<Consulta> findByDataBetween(LocalDateTime inicio, LocalDateTime fim);
-
+    List<Consulta> findByStatusAndDataBetween(
+            Status status,
+            LocalDateTime inicio,
+            LocalDateTime fim
+    );
     List<Consulta> findByMedicoIdAndDataBetweenAndStatusNot(
             Long medicoId,
             LocalDateTime dataInicio,

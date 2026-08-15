@@ -76,5 +76,17 @@ public class ConsultaControler {
         List<ConsultaDto> consultaDtos = consultaService.BuscarConsultas(id);
         return ResponseEntity.status(HttpStatus.OK).body(consultaDtos);
     }
+    @GetMapping("/concluir/{id}")
+    @Funcionario
+    public  ResponseEntity<Void> concluirConsulta(@PathVariable Long id){
+            consultaService.concluirConsulta(id);
 
+        return  ResponseEntity.status(HttpStatus.OK).build();
+    }
+    @GetMapping("/painel")
+    @Funcionario
+    public  ResponseEntity<List<ConsultaDto>> Painel(){
+        List<ConsultaDto> painel = consultaService.painel();
+        return ResponseEntity.status(HttpStatus.OK).body(painel);
+    }
 }

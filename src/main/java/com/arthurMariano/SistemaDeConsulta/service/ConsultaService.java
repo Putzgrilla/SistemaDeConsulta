@@ -116,4 +116,18 @@ public class ConsultaService {
         }
 
     }
+    public  void concluirConsulta(Long id){
+        Consulta consulta = consultaRepository.findById(id).orElseThrow(() -> new NaoAchadoException("consulta nao existe", "id"));
+        consulta.setStatus(Status.CONCLUIDA);
+        consultaRepository.save(consulta);
+
+    }
+    public  List<ConsultaDto> painel(){
+        LocalDate dia = LocalDate.now();
+        LocalDateTime inicio = dia.atStartOfDay();
+        LocalDateTime fim = dia.atTime(LocalTime.MAX);
+        List<Consulta> lista = consultaRepository.findByStatusAndDataBetween(Status.CONFIRMADA,inicio, fim);
+        return consultaMapper.consultaParaConsultaDto(lista);
+
+    }
 }
