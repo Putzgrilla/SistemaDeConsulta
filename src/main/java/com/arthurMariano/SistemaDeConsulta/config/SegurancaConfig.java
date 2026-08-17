@@ -66,7 +66,12 @@ public class SegurancaConfig {
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register/paciente").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/register/paciente").permitAll().
+                        requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(filtodeseguranca, UsernamePasswordAuthenticationFilter.class).build();
 

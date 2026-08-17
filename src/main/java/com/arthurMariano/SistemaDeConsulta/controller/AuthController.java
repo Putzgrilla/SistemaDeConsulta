@@ -10,6 +10,7 @@ import com.arthurMariano.SistemaDeConsulta.service.AuthService;
 import com.arthurMariano.SistemaDeConsulta.service.MedicoService;
 import com.arthurMariano.SistemaDeConsulta.service.PacienteService;
 import com.arthurMariano.SistemaDeConsulta.service.RecepcionistaService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 @RequiredArgsConstructor
 @Controller()
 @RequestMapping("/auth")
@@ -28,7 +31,7 @@ public class AuthController {
     private final PacienteService pacienteService;
     private final MedicoService medicoService;
     private final RecepcionistaService recepcionistaService;
-
+    @Operation(description = "Login de usuario ")
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginForm loginForm) {
 
@@ -37,20 +40,20 @@ public class AuthController {
 
 
     }
-
+    @Operation(description = "cadastro de paciente ")
     @PostMapping("/register/paciente")
     public ResponseEntity<RegistroResponse> registarPaciente(@Valid @RequestBody PacienteForm paciente) {
         RegistroResponse registroResponse = pacienteService.CadastroPaciente(paciente);
         return ResponseEntity.status(HttpStatus.CREATED).body(registroResponse);
     }
-
+    @Operation(description = "cadastro de medico ")
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/register/medico")
     public ResponseEntity<RegistroResponse> registarMedico(@Valid @RequestBody MedicoForm medicoForm) {
         RegistroResponse registroResponse = medicoService.cadastrarMedico(medicoForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(registroResponse);
     }
-
+    @Operation(description = "cadastro de recepcionista ")
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/register/recepcionista")
     public ResponseEntity<RegistroResponse> registrarRecepcionista(@Valid @RequestBody RecepcionistaForm form) {

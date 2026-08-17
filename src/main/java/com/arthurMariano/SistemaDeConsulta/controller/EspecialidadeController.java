@@ -4,31 +4,30 @@ import com.arthurMariano.SistemaDeConsulta.annotations.AcessoGeral;
 import com.arthurMariano.SistemaDeConsulta.dto.EspecialidadeResponse;
 import com.arthurMariano.SistemaDeConsulta.forms.EspecialidadeForm;
 import com.arthurMariano.SistemaDeConsulta.service.EspecialidadeService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Controller()
+@RestController
 @RequestMapping("/especialidade")
 public class EspecialidadeController {
 
     private final EspecialidadeService especialidadeServicel;
-
+    @Operation(description = "Salva uma nova especialidade")
     @PostMapping("/salva")
     public ResponseEntity<EspecialidadeResponse> salvar(@Valid @RequestBody EspecialidadeForm especialidadeForm) {
         EspecialidadeResponse salvar = especialidadeServicel.salvar(especialidadeForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvar);
     }
-
+    @Operation(description = "ve todas as especialidades cadastradas")
     @GetMapping("/buscarTodos")
     @AcessoGeral
     public ResponseEntity<List<EspecialidadeResponse>> buscarTodos() {

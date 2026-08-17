@@ -9,6 +9,7 @@ import com.arthurMariano.SistemaDeConsulta.dto.DiaHorarioDisponivel;
 import com.arthurMariano.SistemaDeConsulta.forms.ConsultaForm;
 import com.arthurMariano.SistemaDeConsulta.service.ConsultaService;
 import com.arthurMariano.SistemaDeConsulta.service.DisponivilidadeService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +18,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
 @RequiredArgsConstructor
 @Controller()
 @RequestMapping("/consulta")
 public class ConsultaControler {
     private final ConsultaService consultaService;
     private final DisponivilidadeService disponivilidadeService;
-
+    @Operation(description = "visualiza consulta do usuário ")
     @AcessoGeral
     @GetMapping("/minhas")
     public ResponseEntity<List<ConsultaDto>> minhasConsultas(@AuthenticationPrincipal JwtUserData userData) {
@@ -33,14 +34,14 @@ public class ConsultaControler {
 
         return ResponseEntity.status(HttpStatus.OK).body(consultaDtos);
     }
-
+    @Operation(description = "Marca consultas")
     @AcessoGeral
     @PostMapping("/marca")
     public ResponseEntity<ConsultaMarcaResponse> marca(@RequestBody ConsultaForm consultaForm) {
         ConsultaMarcaResponse save = consultaService.marca(consultaForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(save);
     }
-
+    @Operation(description = "Visualiza Horários disponíveis de um medico")
     @AcessoGeral
     @GetMapping("/horarios/{id}")
     public ResponseEntity<List<DiaHorarioDisponivel>> diasHorarios(@PathVariable Long id) {
@@ -48,35 +49,35 @@ public class ConsultaControler {
         List<DiaHorarioDisponivel> lista = disponivilidadeService.diaDisponiveis(id);
         return ResponseEntity.status(HttpStatus.OK).body(lista);
     }
-
+    @Operation(description = "Confirma presença do paciente")
     @Funcionario
     @GetMapping("/confirma/{id}")
     public ResponseEntity<Void> confirmaConsulta(@PathVariable Long id) {
         consultaService.confirmaConsulta(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
+    @Operation(description = "Cancela consulta")
     @Funcionario
     @GetMapping("/cancelar/{id}")
     public ResponseEntity<Void> cancelar(@PathVariable Long id) {
         consultaService.cancelarConsulta(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
+    @Operation(description = "Cancela consulta do proprio usuário")
     @AcessoGeral
     @GetMapping("/cancelarMinhas/{id}")
     public ResponseEntity<Void> cancelarMinhaConsulta(@AuthenticationPrincipal JwtUserData userData, @PathVariable Long id) {
         consultaService.cancelarMinhaConsulta(userData, id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
+    @Operation(description = "Ve consultas com base do id do usuário")
     @GetMapping("/consultas/{id}")
     @Funcionario
     public ResponseEntity<List<ConsultaDto>> pesquisarConsultas(@PathVariable Long id) {
         List<ConsultaDto> consultaDtos = consultaService.BuscarConsultas(id);
         return ResponseEntity.status(HttpStatus.OK).body(consultaDtos);
     }
-
+    @Operation(description = "Marca uma consulta como concluída")
     @GetMapping("/concluir/{id}")
     @Funcionario
     public ResponseEntity<Void> concluirConsulta(@PathVariable Long id) {
@@ -84,7 +85,7 @@ public class ConsultaControler {
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
+    @Operation(description = "envia consulta marcas com confirmadas para uso do painel")
     @GetMapping("/painel")
     @Funcionario
     public ResponseEntity<List<ConsultaDto>> Painel() {
