@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ import java.util.List;
 public class EspecialidadeController {
 
     private final EspecialidadeService especialidadeServicel;
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation(description = "Salva uma nova especialidade")
     @PostMapping("/salva")
     public ResponseEntity<EspecialidadeResponse> salvar(@Valid @RequestBody EspecialidadeForm especialidadeForm) {

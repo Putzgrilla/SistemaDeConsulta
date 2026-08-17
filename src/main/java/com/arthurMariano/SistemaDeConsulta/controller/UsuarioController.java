@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,15 +24,15 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @AcessoGeral
-
     @GetMapping("/meusDados")
     @Operation(description = "Ver seus próprios dados")
     public ResponseEntity<UsuarioDTO> meusDados(@AuthenticationPrincipal JwtUserData userData) {
         UsuarioDTO dto = usuarioService.buscarMeusDados(userData.id());
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/{id}")
-    @Operation(description = "Ver seus próprios dados")
+    @Operation(description = "ver dados de outro usuario")
     public ResponseEntity<UsuarioDTO> meusDados(@PathVariable Long id) {
         UsuarioDTO dto = usuarioService.buscarMeusDados(id);
         return ResponseEntity.status(HttpStatus.OK).body(dto);

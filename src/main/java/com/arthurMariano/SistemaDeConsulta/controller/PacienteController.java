@@ -1,5 +1,6 @@
 package com.arthurMariano.SistemaDeConsulta.controller;
 
+import com.arthurMariano.SistemaDeConsulta.annotations.Funcionario;
 import com.arthurMariano.SistemaDeConsulta.dto.PacienteDTO;
 import com.arthurMariano.SistemaDeConsulta.service.PacienteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("paciente/")
 public class PacienteController {
     private final PacienteService pacienteService;
+    @Funcionario
     @Operation(description = "Pesquisa paciente pelo cpf")
     @GetMapping("pesquisaCpf/{cpf}")
     public ResponseEntity<PacienteDTO> pesquisarPacienteCpf(@PathVariable String cpf) {
