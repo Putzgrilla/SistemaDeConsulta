@@ -32,7 +32,7 @@ public class HorarioController {
     @Operation(description = "salva horários de atendimento em lista")
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/salvarlist")
-    public ResponseEntity<?> SalvarLista(@RequestBody List<HorarioForm> horarioForm) {
+    public ResponseEntity<?> salvarLista(@RequestBody List<HorarioForm> horarioForm) {
 
         horarioService.salvar(horarioForm);
         return ResponseEntity.status(HttpStatus.OK).build();

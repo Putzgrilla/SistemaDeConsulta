@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("paciente/")
+@RequestMapping("/paciente")
 public class PacienteController {
     private final PacienteService pacienteService;
     @Funcionario
     @Operation(description = "Pesquisa paciente pelo cpf")
-    @GetMapping("pesquisaCpf/{cpf}")
+    @GetMapping("/pesquisaCpf/{cpf}")
     public ResponseEntity<PacienteDTO> pesquisarPacienteCpf(@PathVariable String cpf) {
         PacienteDTO pacienteDTO = pacienteService.pesquisarPorcpf(cpf);
         return ResponseEntity.status(HttpStatus.OK).body(pacienteDTO);

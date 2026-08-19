@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller()
 @RequestMapping("/consulta")
-public class ConsultaControler {
+public class ConsultaController {
     private final ConsultaService consultaService;
     private final DisponivilidadeService disponivilidadeService;
     @Operation(description = "visualiza consulta do usuário ")
@@ -51,21 +51,21 @@ public class ConsultaControler {
     }
     @Operation(description = "Confirma presença do paciente")
     @Funcionario
-    @GetMapping("/confirma/{id}")
+    @PatchMapping("/confirma/{id}")
     public ResponseEntity<Void> confirmaConsulta(@PathVariable Long id) {
         consultaService.confirmaConsulta(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
     @Operation(description = "Cancela consulta")
     @Funcionario
-    @GetMapping("/cancelar/{id}")
+    @PatchMapping("/cancelar/{id}")
     public ResponseEntity<Void> cancelar(@PathVariable Long id) {
         consultaService.cancelarConsulta(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
     @Operation(description = "Cancela consulta do proprio usuário")
     @AcessoGeral
-    @GetMapping("/cancelarMinhas/{id}")
+    @PatchMapping("/cancelarMinhas/{id}")
     public ResponseEntity<Void> cancelarMinhaConsulta(@AuthenticationPrincipal JwtUserData userData, @PathVariable Long id) {
         consultaService.cancelarMinhaConsulta(userData, id);
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -78,7 +78,7 @@ public class ConsultaControler {
         return ResponseEntity.status(HttpStatus.OK).body(consultaDtos);
     }
     @Operation(description = "Marca uma consulta como concluída")
-    @GetMapping("/concluir/{id}")
+    @PatchMapping("/concluir/{id}")
     @Funcionario
     public ResponseEntity<Void> concluirConsulta(@PathVariable Long id) {
         consultaService.concluirConsulta(id);
@@ -88,7 +88,7 @@ public class ConsultaControler {
     @Operation(description = "envia consulta marcas com confirmadas para uso do painel")
     @GetMapping("/painel")
     @Funcionario
-    public ResponseEntity<List<ConsultaDto>> Painel() {
+    public ResponseEntity<List<ConsultaDto>> painel() {
         List<ConsultaDto> painel = consultaService.painel();
         return ResponseEntity.status(HttpStatus.OK).body(painel);
     }
