@@ -27,7 +27,7 @@ import java.util.List;
 @Configuration
 @EnableMethodSecurity
 public class SegurancaConfig {
-    private final FiltroDeSeguranca filtodeseguranca;
+    private final FiltroDeSeguranca filtroDeSeguranca;
 
     @Value("${frontend.url:*}")
     private String frontendUrl;
@@ -73,7 +73,7 @@ public class SegurancaConfig {
                                 "/swagger-ui.html"
                         ).permitAll()
                         .anyRequest().authenticated())
-                .addFilterBefore(filtodeseguranca, UsernamePasswordAuthenticationFilter.class).build();
+                .addFilterBefore(filtroDeSeguranca, UsernamePasswordAuthenticationFilter.class).build();
 
 
     }

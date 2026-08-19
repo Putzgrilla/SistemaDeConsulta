@@ -24,7 +24,7 @@ public class AuthService {
     private final PacienteMapper pacienteMapper;
     private final PacienteRepository pacienteRepository;
 
-    public LoginResponse Login(LoginForm login) {
+    public LoginResponse login(LoginForm login) {
         UsernamePasswordAuthenticationToken userpass = new UsernamePasswordAuthenticationToken(login.login(), login.senha());
         Authentication authentication = authenticationManager.authenticate(userpass);
         Usuario usuario = (Usuario) authentication.getPrincipal();

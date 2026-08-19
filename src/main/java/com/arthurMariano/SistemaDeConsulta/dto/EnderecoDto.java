@@ -2,7 +2,7 @@ package com.arthurMariano.SistemaDeConsulta.dto;
 
 
 
-public record EnderecoDTO(
+public record EnderecoDto(
         String logradouro,
         String numero,
         String cep,

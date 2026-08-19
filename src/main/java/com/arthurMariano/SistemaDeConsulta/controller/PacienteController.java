@@ -1,7 +1,7 @@
 package com.arthurMariano.SistemaDeConsulta.controller;
 
 import com.arthurMariano.SistemaDeConsulta.annotations.Funcionario;
-import com.arthurMariano.SistemaDeConsulta.dto.PacienteDTO;
+import com.arthurMariano.SistemaDeConsulta.dto.PacienteDto;
 import com.arthurMariano.SistemaDeConsulta.service.PacienteService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,8 @@ public class PacienteController {
     @Funcionario
     @Operation(description = "Pesquisa paciente pelo cpf")
     @GetMapping("/pesquisaCpf/{cpf}")
-    public ResponseEntity<PacienteDTO> pesquisarPacienteCpf(@PathVariable String cpf) {
-        PacienteDTO pacienteDTO = pacienteService.pesquisarPorcpf(cpf);
+    public ResponseEntity<PacienteDto> pesquisarPacienteCpf(@PathVariable String cpf) {
+        PacienteDto pacienteDTO = pacienteService.pesquisarPorcpf(cpf);
         return ResponseEntity.status(HttpStatus.OK).body(pacienteDTO);
 
     }

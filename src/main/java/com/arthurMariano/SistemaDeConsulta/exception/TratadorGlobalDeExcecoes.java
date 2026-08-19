@@ -57,7 +57,7 @@ public class TratadorGlobalDeExcecoes {
     }
 
     @ExceptionHandler(DataInvalidaException.class)
-    public ResponseEntity<String> DataInvalida(DataInvalidaException e) {
+    public ResponseEntity<String> dataInvalida(DataInvalidaException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 }

@@ -30,7 +30,7 @@ public class MedicoController {
     @Operation(description = "Pesquisa medico pelo seu nome")
     @AcessoGeral
     @GetMapping("/nome/{nome}")
-    public ResponseEntity<List<MedicoPesquisaDto>> PesquisarPornome(@PathVariable String nome) {
+    public ResponseEntity<List<MedicoPesquisaDto>> pesquisarPornome(@PathVariable String nome) {
         List<MedicoPesquisaDto> dtos = medicoService.pesquisarMedicoPorNome(nome);
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
 

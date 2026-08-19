@@ -1,7 +1,6 @@
 package com.arthurMariano.SistemaDeConsulta.service;
 
-import com.arthurMariano.SistemaDeConsulta.config.JwtUserData;
-import com.arthurMariano.SistemaDeConsulta.dto.UsuarioDTO;
+import com.arthurMariano.SistemaDeConsulta.dto.UsuarioDto;
 import com.arthurMariano.SistemaDeConsulta.exception.NaoAchadoException;
 import com.arthurMariano.SistemaDeConsulta.mapper.UsuarioMapper;
 import com.arthurMariano.SistemaDeConsulta.model.Usuario;
@@ -16,7 +15,7 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final UsuarioMapper usuarioMapper;
 
-    public UsuarioDTO buscarMeusDados(Long id) {
+    public UsuarioDto buscarMeusDados(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new NaoAchadoException("usuario nao encontrado", "id"));
 

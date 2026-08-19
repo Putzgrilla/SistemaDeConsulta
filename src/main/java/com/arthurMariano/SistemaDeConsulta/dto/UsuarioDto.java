@@ -2,7 +2,7 @@ package com.arthurMariano.SistemaDeConsulta.dto;
 
 import com.arthurMariano.SistemaDeConsulta.model.enums.Cargo;
 
-public record UsuarioDTO(
+public record UsuarioDto(
         Long id,
         String nome,
         String login,
@@ -11,7 +11,7 @@ public record UsuarioDTO(
         // campos exclusivos de Paciente (nulos para os outros cargos)
         String cpf,
         String telefone,
-        EnderecoDTO endereco,
+        EnderecoDto endereco,
 
         // campos exclusivos de Medico (nulos para os outros cargos)
         String consultorio,

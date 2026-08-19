@@ -1,6 +1,6 @@
 package com.arthurMariano.SistemaDeConsulta.service;
 
-import com.arthurMariano.SistemaDeConsulta.dto.PacienteDTO;
+import com.arthurMariano.SistemaDeConsulta.dto.PacienteDto;
 import com.arthurMariano.SistemaDeConsulta.dto.RegistroResponse;
 import com.arthurMariano.SistemaDeConsulta.exception.DadoJaCadastradoException;
 import com.arthurMariano.SistemaDeConsulta.exception.NaoAchadoException;
@@ -22,7 +22,7 @@ public class PacienteService {
     private final PacienteRepository pacienteRepository;
     private final PacienteMapper pacienteMapper;
 
-    public RegistroResponse CadastroPaciente(PacienteForm form) {
+    public RegistroResponse cadastroPaciente(PacienteForm form) {
 
         if (usuarioRepository.existsByLogin(form.login())) {
 
@@ -39,7 +39,7 @@ public class PacienteService {
         return new RegistroResponse(save.getId(), save.getLogin());
     }
 
-    public PacienteDTO pesquisarPorcpf(String cpf) {
+    public PacienteDto pesquisarPorcpf(String cpf) {
         Paciente paciente = pacienteRepository.findByCpf(cpf).orElseThrow(() -> new NaoAchadoException("Pacinete nao existe", "cpf"));
         return pacienteMapper.pacienteParaDTO(paciente);
     }

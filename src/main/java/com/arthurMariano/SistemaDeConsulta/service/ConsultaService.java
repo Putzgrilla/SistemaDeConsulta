@@ -50,7 +50,7 @@ public class ConsultaService {
 
     }
 
-    public List<ConsultaDto> BuscarConsultas(Long id) {
+    public List<ConsultaDto> buscarConsultas(Long id) {
         List<Consulta> consultas = consultaRepository.buscarPorMedicoOuPacienteId(id);
 
         return consultaMapper.consultaParaConsultaDto(consultas);
@@ -59,7 +59,7 @@ public class ConsultaService {
     public ConsultaMarcaResponse marca(ConsultaForm consultaForm) {
         LocalDateTime data = consultaForm.data();
         verificarConsultaNaMesmaData(data);
-        DentroDoPeriodoDeMarca(data);
+        dentroDoPeriodoDeMarca(data);
         Medico medico = medicoRepository.findById(consultaForm.medicoId()).orElseThrow(() -> new NaoAchadoException("medico", "Medico nao Existe"));
         disponivilidadeService.disponivel(medico, data);
         Consulta consulta = new Consulta();
@@ -73,7 +73,7 @@ public class ConsultaService {
         return consultaMapper.consultaParaConsultaMarcaResponse(save);
     }
 
-    private List<ConsultaDto> ConsultaMarcadasNoDia(LocalDate dia) {
+    private List<ConsultaDto> consultaMarcadasNoDia(LocalDate dia) {
         LocalDateTime inicio = dia.atStartOfDay();
         LocalDateTime fim = dia.atTime(LocalTime.MAX);
         List<Consulta> lista = consultaRepository.findByDataBetween(inicio, fim);
@@ -85,7 +85,7 @@ public class ConsultaService {
         if (consultaRepository.existsByData(data)) throw new DataInvalidaException("Existe uma consulta nessa data ja");
     }
 
-    private void DentroDoPeriodoDeMarca(LocalDateTime data) {
+    private void dentroDoPeriodoDeMarca(LocalDateTime data) {
         if (data.isBefore(LocalDateTime.now().plusDays(config.minimoDeConsultas()))) {
             throw new DataInvalidaException("Data da consulta muito proxima");
         }

@@ -45,16 +45,16 @@ public class DisponivilidadeService {
         if (ausente) throw new DataInvalidaException("dia invalido");
 
         //Validar dia da semana
-        DayOfWeek diaDaSenamaConulta = data.getDayOfWeek();
-        Horario horarioValidos = horarios.stream().filter(p -> p.getDiaSemana() == diaDaSenamaConulta).findFirst().orElseThrow(() -> new DataInvalidaException("dia invalido"));
+        DayOfWeek diaDaSemanaConsulta = data.getDayOfWeek();
+        Horario horarioValidos = horarios.stream().filter(p -> p.getDiaSemana() == diaDaSemanaConsulta).findFirst().orElseThrow(() -> new DataInvalidaException("dia invalido"));
 
         //Validar Horario
-        ValidarHorarioDaconsulta(data, horarioValidos);
+        validarHorarioDaconsulta(data, horarioValidos);
 
         return true;
     }
 
-    private void ValidarHorarioDaconsulta(LocalDateTime data, Horario horarioValidos) {
+    private void validarHorarioDaconsulta(LocalDateTime data, Horario horarioValidos) {
 
         LocalTime horas = data.toLocalTime();
         boolean horavalida = horas.getMinute() % 30 == 0;

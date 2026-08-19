@@ -74,7 +74,7 @@ public class ConsultaController {
     @GetMapping("/consultas/{id}")
     @Funcionario
     public ResponseEntity<List<ConsultaDto>> pesquisarConsultas(@PathVariable Long id) {
-        List<ConsultaDto> consultaDtos = consultaService.BuscarConsultas(id);
+        List<ConsultaDto> consultaDtos = consultaService.buscarConsultas(id);
         return ResponseEntity.status(HttpStatus.OK).body(consultaDtos);
     }
     @Operation(description = "Marca uma consulta como concluída")

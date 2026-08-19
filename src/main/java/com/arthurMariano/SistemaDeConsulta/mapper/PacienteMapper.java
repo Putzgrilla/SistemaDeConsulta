@@ -1,6 +1,6 @@
 package com.arthurMariano.SistemaDeConsulta.mapper;
 
-import com.arthurMariano.SistemaDeConsulta.dto.PacienteDTO;
+import com.arthurMariano.SistemaDeConsulta.dto.PacienteDto;
 import com.arthurMariano.SistemaDeConsulta.forms.EnderecoForm;
 import com.arthurMariano.SistemaDeConsulta.forms.PacienteForm;
 import com.arthurMariano.SistemaDeConsulta.model.Endereco;
@@ -20,6 +20,6 @@ public interface PacienteMapper {
 
     Endereco enderecoFormParaEndereco(EnderecoForm enderecoForm);
 
-    PacienteDTO pacienteParaDTO(Paciente paciente);
+    PacienteDto pacienteParaDTO(Paciente paciente);
 
 }

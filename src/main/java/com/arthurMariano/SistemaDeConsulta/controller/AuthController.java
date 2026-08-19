@@ -35,15 +35,15 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginForm loginForm) {
 
-        LoginResponse Response = authService.Login(loginForm);
-        return ResponseEntity.status(HttpStatus.OK).body(Response);
+        LoginResponse response = authService.login(loginForm);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
 
 
     }
     @Operation(description = "cadastro de paciente ")
     @PostMapping("/register/paciente")
     public ResponseEntity<RegistroResponse> registarPaciente(@Valid @RequestBody PacienteForm paciente) {
-        RegistroResponse registroResponse = pacienteService.CadastroPaciente(paciente);
+        RegistroResponse registroResponse = pacienteService.cadastroPaciente(paciente);
         return ResponseEntity.status(HttpStatus.CREATED).body(registroResponse);
     }
     @Operation(description = "cadastro de medico ")
