@@ -111,6 +111,7 @@ public class ConsultaService {
         Consulta consulta = consultaRepository.findById(id).orElseThrow(() -> new NaoAchadoException("consulta nao existe", "id"));
         if (Objects.equals(consulta.getMedico().getId(), data.id()) || Objects.equals(consulta.getPaciente().getId(), data.id())) {
             consulta.setStatus(Status.CANCELADA);
+            consultaRepository.save(consulta);
         } else {
             throw new NaoAchadoException("essa consulta não é sua", "Id");
         }
